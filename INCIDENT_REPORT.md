@@ -37,7 +37,7 @@
 **КОММИТ**:
 <br/>cd1a1b54a54478e924767a38e4c236b55e2178ad
 
-# Инцидент №3: Логирование в App.xaml.cs и MainWindow.xaml.cs
+# Инцидент №4: Логирование в App.xaml.cs и MainWindow.xaml.cs
 **СИМПТОМ**:
 <br/>Отсутствие логирования в App.xaml.cs и MainWindow.xaml.cs.
 
@@ -48,4 +48,4 @@
 <br/>Добавление Log.Information.
 
 **КОММИТ**:
-<br/>
+<br/>30c1d20159326ac971f2b133635847bf32b60cad
