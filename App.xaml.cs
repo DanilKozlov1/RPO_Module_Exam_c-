@@ -8,10 +8,10 @@ namespace MediTrack
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            
+            LoggerConfig.Init();
+
             try
             {
-                LoggerConfig.Init();
                 Log.Information("Приложение MediTrack запущено.");
             }
             catch (System.Exception ex)

@@ -12,12 +12,14 @@ namespace MediTrack
 
         public DatabaseService()
         {
+            Env.TraversePath().Load();
+
             // Чтение из .env (если пакет подключен)
-            var host = Env.GetString("DB_HOST", "localhost");
-            var port = Env.GetString("DB_PORT", "5432");
-            var db = Env.GetString("DB_NAME", "meditrack_db");
-            var user = Env.GetString("DB_USER", "postgres");
-            var pass = Env.GetString("DB_PASSWORD", "");
+            var host = Env.GetString("DB_HOST");
+            var port = Env.GetInt("DB_PORT");
+            var db = Env.GetString("DB_NAME");
+            var user = Env.GetString("DB_USER");
+            var pass = Env.GetString("DB_PASSWORD");
 
             _connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
         }
@@ -37,7 +39,7 @@ namespace MediTrack
             }
             catch (Exception ex)
             {
-                
+                Log.Error("Ошибка базы данных: {exMessage}", ex);
                 System.Windows.MessageBox.Show("Произошла ошибка при загрузке данных.");
             }
             return table;
