@@ -32,7 +32,7 @@
 <br/>Файл DatabaseService.cs не читает из файла.
 
 **РЕШЕНИЕ**:
-<br/>Добавление строки Env.TraversePath().Load(); в конструктор.
+<br/>Добавление Log.Warning.
 
 **КОММИТ**:
 <br/>cd1a1b54a54478e924767a38e4c236b55e2178ad

@@ -19,7 +19,7 @@ namespace MediTrack
         {
             if (string.IsNullOrEmpty(data))
             {
-                Log.Error($"Файл .env не найден или {dataName} не найден.");
+                Log.Warning($"Файл .env не найден или {dataName} не найден.");
                 return false;
             }
 
@@ -36,7 +36,7 @@ namespace MediTrack
 
             var port = Env.GetInt("DB_PORT");
             if (port <= 0)
-                Log.Error($"Файл .env не найден или DB_PORT не найден.");
+                Log.Warning($"Файл .env не найден или DB_PORT не найден.");
 
             var db = Env.GetString("DB_NAME");
             IsValideData(host, "DB_HOST");
