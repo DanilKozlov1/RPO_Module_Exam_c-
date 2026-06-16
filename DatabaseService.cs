@@ -2,6 +2,7 @@ using Npgsql;
 using System;
 using System.Data;
 using Serilog;
+using DotNetEnv;
 
 namespace MediTrack
 {
@@ -12,11 +13,11 @@ namespace MediTrack
         public DatabaseService()
         {
             // Чтение из .env (если пакет подключен)
-            var host = DotNetEnv.Env.GetString("DB_HOST", "localhost");
-            var port = DotNetEnv.Env.GetString("DB_PORT", "5432");
-            var db = DotNetEnv.Env.GetString("DB_NAME", "meditrack_db");
-            var user = DotNetEnv.Env.GetString("DB_USER", "postgres");
-            var pass = DotNetEnv.Env.GetString("DB_PASSWORD", "");
+            var host = Env.GetString("DB_HOST", "localhost");
+            var port = Env.GetString("DB_PORT", "5432");
+            var db = Env.GetString("DB_NAME", "meditrack_db");
+            var user = Env.GetString("DB_USER", "postgres");
+            var pass = Env.GetString("DB_PASSWORD", "");
 
             _connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
         }
