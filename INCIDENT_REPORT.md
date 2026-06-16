@@ -29,10 +29,23 @@
 <br/>Не считывались данные из .env.
 
 **ПРИЧИНА**:
-<br/>Файл DatabaseService.cs не читает из файла.
+<br/>Отстутсвия уровней Warning и Error.
 
 **РЕШЕНИЕ**:
-<br/>Добавление Log.Warning.
+<br/>Добавление Log.Warning и Log.Error.
 
 **КОММИТ**:
 <br/>cd1a1b54a54478e924767a38e4c236b55e2178ad
+
+# Инцидент №3: Логирование в App.xaml.cs и MainWindow.xaml.cs
+**СИМПТОМ**:
+<br/>Отсутствие логирования в App.xaml.cs и MainWindow.xaml.cs.
+
+**ПРИЧИНА**:
+<br/>Отсутствие уровня Information.
+
+**РЕШЕНИЕ**:
+<br/>Добавление Log.Information.
+
+**КОММИТ**:
+<br/>

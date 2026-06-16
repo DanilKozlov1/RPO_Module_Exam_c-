@@ -16,9 +16,17 @@ namespace MediTrack
             }
             catch (System.Exception ex)
             { 
-                System.Console.WriteLine($"Критическая ошибка инициализации: {ex}");
+                Log.Error($"Критическая ошибка инициализации: {ex}");
+
+                Log.Information("Приложение MediTrack завершает свою работу.");
                 Shutdown(1);
             }
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Log.Information("Приложение MediTrack завершает свою работу.");
+            base.OnExit(e);
         }
     }
 }
