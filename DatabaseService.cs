@@ -10,16 +10,19 @@ namespace MediTrack
     {
         private readonly string _connectionString;
 
+
         public DatabaseService()
         {
             _connectionString = LoadConnectionString();
         }
 
+
         private bool IsValideData(string data, string dataName)
         {
             if (string.IsNullOrEmpty(data))
             {
-                Log.Warning($"Файл .env не найден или {dataName} не найден.");
+                Log.ForContext("SourceContext", "DatabaseService")
+                    .Warning($"Файл .env не найден или {dataName} не найден.");
                 return false;
             }
 
@@ -36,7 +39,10 @@ namespace MediTrack
 
             var port = Env.GetInt("DB_PORT");
             if (port <= 0)
-                Log.Warning($"Файл .env не найден или DB_PORT не найден.");
+            {
+                Log.ForContext("SourceContext", "DatabaseService")
+                    .Warning($"Файл .env не найден или DB_PORT не найден.");
+            }
 
             var db = Env.GetString("DB_NAME");
             IsValideData(host, "DB_HOST");
@@ -58,7 +64,8 @@ namespace MediTrack
             {
                 using var conn = new NpgsqlConnection(_connectionString);
                 conn.Open();
-                Log.Information("Успешное подключение к базе данных PostgreSQL.");
+                Log.ForContext("SourceContext", "DatabaseService")
+                    .Information("Успешное подключение к базе данных PostgreSQL.");
                 
                 using var cmd = new NpgsqlCommand("SELECT * FROM medications", conn);
                 using var adapter = new NpgsqlDataAdapter(cmd);
@@ -66,7 +73,8 @@ namespace MediTrack
             }
             catch (Exception ex)
             {
-                Log.Error("Ошибка базы данных: {exMessage}", ex);
+                Log.ForContext("SourceContext", "DatabaseService")
+                    .Error("Ошибка базы данных: {exMessage}", ex);
             }
 
             return table;

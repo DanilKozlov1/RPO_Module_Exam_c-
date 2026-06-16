@@ -12,20 +12,24 @@ namespace MediTrack
 
             try
             {
-                Log.Information("Приложение MediTrack запущено.");
+                Log.ForContext("SourceContext", "App")
+                    .Information("Приложение MediTrack запущено.");
             }
             catch (System.Exception ex)
             { 
-                Log.Error($"Критическая ошибка инициализации: {ex}");
+                Log.ForContext("SourceContext", "App")
+                    .Error($"Критическая ошибка инициализации: {ex}");
 
-                Log.Information("Приложение MediTrack завершает свою работу.");
+                Log.ForContext("SourceContext", "App")
+                    .Information("Приложение MediTrack завершает свою работу.");
                 Shutdown(1);
             }
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Log.Information("Приложение MediTrack завершает свою работу.");
+            Log.ForContext("SourceContext", "App")
+                .Information("Приложение MediTrack завершает свою работу.");
             base.OnExit(e);
         }
     }

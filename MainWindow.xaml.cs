@@ -11,6 +11,7 @@ namespace MediTrack
             LoadData();
         }
 
+
         private void LoadData()
         {
             var dbService = new DatabaseService();
@@ -19,7 +20,8 @@ namespace MediTrack
             this.DataContext = data;
             
             if (data.Rows.Count > 0)
-                Log.Information($"Успешно загружено {data.Rows.Count} записей из БД.");
+                Log.ForContext("SourceContext", "MainWindow")
+                    .Information($"Успешно загружено {data.Rows.Count} записей из БД.");
         }
     }
 }
