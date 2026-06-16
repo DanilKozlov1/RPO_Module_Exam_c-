@@ -12,21 +12,48 @@ namespace MediTrack
 
         public DatabaseService()
         {
+            _connectionString = LoadConnectionString();
+        }
+
+        private bool IsValideData(string data, string dataName)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                Log.Error($"Файл .env не найден или {dataName} не найден.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private string LoadConnectionString()
+        {
             Env.TraversePath().Load();
 
             // Чтение из .env (если пакет подключен)
             var host = Env.GetString("DB_HOST");
-            var port = Env.GetInt("DB_PORT");
-            var db = Env.GetString("DB_NAME");
-            var user = Env.GetString("DB_USER");
-            var pass = Env.GetString("DB_PASSWORD");
+            IsValideData(host, "DB_HOST");
 
-            _connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
+            var port = Env.GetInt("DB_PORT");
+            if (port <= 0)
+                Log.Error($"Файл .env не найден или DB_PORT не найден.");
+
+            var db = Env.GetString("DB_NAME");
+            IsValideData(host, "DB_HOST");
+
+            var user = Env.GetString("DB_USER");
+            IsValideData(host, "DB_HOST");
+
+            var pass = Env.GetString("DB_PASSWORD");
+            IsValideData(host, "DB_HOST");
+
+            return $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
         }
 
         public DataTable GetMedications()
         {
             var table = new DataTable();
+            
             try
             {
                 using var conn = new NpgsqlConnection(_connectionString);
@@ -40,8 +67,8 @@ namespace MediTrack
             catch (Exception ex)
             {
                 Log.Error("Ошибка базы данных: {exMessage}", ex);
-                System.Windows.MessageBox.Show("Произошла ошибка при загрузке данных.");
             }
+
             return table;
         }
     }
